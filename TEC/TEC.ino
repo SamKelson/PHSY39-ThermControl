@@ -172,6 +172,9 @@ void loop() {
       float u = kp * error + ki * integral;  // calculate PI feedback
       pwmValue = min(abs(round(u)),255);  // magnitude of PI feedback term u limited to a max of 255 for arduino PWM
 
+      //turned off when testing KI overshoot
+      //if(ki * integral>255){integral=0;}
+
       // heat or cool
       if (u > 0){ // heat
         HeatCool = 1;

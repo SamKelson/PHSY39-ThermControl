@@ -4,10 +4,29 @@ import numpy as np
 
 fileName = "PTestingTooMuch(200)"
 
-dataY, dataX = np.genfromtxt(fileName+".txt",delimiter=",",skip_header=1,unpack=True)
+Temp, PWM, SetTemp, Time = np.genfromtxt(fileName+".txt",delimiter=",",skip_header=1,unpack=True)
 
-plt.plot(dataX, dataY)
-plt.xlabel("Time (sec)")
-plt.ylabel("Temp (C)")
-plt.savefig(fileName+".png")
+figure = plt.figure()
+subfigs = figure.subplots(2,1,sharex=True)
+
+subfigs[0].plot(Time,Temp,label="Measurement")
+
+subfigs[0].set_ylabel("Temp (C)")
+
+subfigs[0].plot(Time,SetTemp,label="Set Temp")
+
+subfigs[0].set_title("Output")
+
+subfigs[0].legend()
+
+subfigs[1].plot(Time,PWM)
+
+subfigs[1].set_ylabel("PWM")
+
+subfigs[1].set_title("Input")
+
+figure.supxlabel("Time (sec)")
+
+figure.savefig(fileName+".png")
+
 plt.show()
